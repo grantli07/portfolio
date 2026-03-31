@@ -238,7 +238,7 @@
     }
     .course-item::before { content: '▸'; color: var(--accent); font-size: 0.8rem; flex-shrink: 0; }
 
-    /* ── COLLAPSIBLE CARDS (shared by projects + experience) ── */
+    /* ── COLLAPSIBLE CARDS ── */
     .cards-list { display: flex; flex-direction: column; gap: 1rem; }
 
     .exp-card, .project-card {
@@ -256,36 +256,21 @@
       padding: 1.4rem 2rem;
       cursor: pointer; user-select: none; gap: 1.5rem;
     }
-
     .card-header-left { flex: 1; min-width: 0; }
 
-    /* Top meta row: label + date + location */
     .card-meta {
       display: flex; align-items: center; gap: 1rem;
       flex-wrap: wrap; margin-bottom: 0.35rem;
     }
-    .card-label {
-      font-family: 'DM Mono', monospace; font-size: 0.68rem;
-      color: var(--accent); letter-spacing: 0.1em;
-    }
-    .card-date {
-      font-family: 'DM Mono', monospace; font-size: 0.68rem;
-      color: var(--muted); letter-spacing: 0.05em;
-    }
-    .card-location {
-      font-family: 'DM Mono', monospace; font-size: 0.68rem;
-      color: var(--muted); letter-spacing: 0.05em;
-    }
-    .card-meta-sep {
-      font-size: 0.6rem; color: var(--border);
-    }
+    .card-label { font-family: 'DM Mono', monospace; font-size: 0.68rem; color: var(--accent); letter-spacing: 0.1em; }
+    .card-date { font-family: 'DM Mono', monospace; font-size: 0.68rem; color: var(--muted); letter-spacing: 0.05em; }
+    .card-location { font-family: 'DM Mono', monospace; font-size: 0.68rem; color: var(--muted); letter-spacing: 0.05em; }
+    .card-meta-sep { font-size: 0.6rem; color: var(--border); }
 
     .card-header h3 {
       font-family: 'DM Serif Display', serif;
       font-size: 1.25rem; color: var(--text); font-weight: 400;
     }
-
-    /* For experience: subtitle (company) under title */
     .card-subtitle {
       font-family: 'DM Mono', monospace; font-size: 0.75rem;
       color: var(--accent2); margin-top: 0.2rem;
@@ -306,7 +291,6 @@
       background: rgba(232,197,71,0.08);
     }
 
-    /* Collapsible body */
     .card-body {
       max-height: 0; overflow: hidden;
       transition: max-height 0.4s ease, padding 0.4s ease;
@@ -318,15 +302,12 @@
       padding: 0 2rem 1.75rem;
     }
 
-    .card-body p {
-      font-size: 0.9rem; color: var(--muted); line-height: 1.7; margin-bottom: 1.25rem;
-    }
+    .card-body p { font-size: 0.9rem; color: var(--muted); line-height: 1.7; margin-bottom: 1.25rem; }
 
     .card-footer {
       display: flex; align-items: center;
       justify-content: space-between; flex-wrap: wrap; gap: 1rem;
     }
-
     .project-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
     .tag {
       font-family: 'DM Mono', monospace; font-size: 0.65rem;
@@ -372,8 +353,15 @@
       from { opacity: 0; transform: translateY(20px); }
       to   { opacity: 1; transform: translateY(0); }
     }
-    .fade-in { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
-    .fade-in.visible { opacity: 1; transform: translateY(0); }
+    .fade-in {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
 
     /* ── RESPONSIVE ── */
     @media (max-width: 900px) {
@@ -388,7 +376,6 @@
       .hero-scroll { left: 1.5rem; }
       .about-grid, .about-bottom, .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
       .course-grid, .skills-grid { grid-template-columns: 1fr; }
-      .timeline-item { grid-template-columns: 1fr; gap: 0.5rem; }
       footer { flex-direction: column; gap: 0.5rem; text-align: center; padding: 1.5rem; }
     }
   </style>
@@ -622,10 +609,13 @@
           <button class="card-toggle" aria-label="Expand">+</button>
         </div>
         <div class="card-body">
+          <p>
+            • Worked in a team of 6 to design and test electronic assemblies and PCBs for oil, gas At-Bit and Measurement While Drilling tools<br>
+            • Developed and programmed a newly proposed rotation stand model for testing tools using AutoCAD and Python, enabling tilt from 0-90 degrees with 360-degree rotation, effectively simulating directional drilling<br>
+            • Gained experience with development workflow including writing technical reports and documenting stand instructions
+          </p>
         </div>
       </div>
-
-      <!-- Add more exp-card blocks here as needed -->
 
     </div>
   </section>
@@ -678,6 +668,12 @@
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
 
+    // Reveal all fade-in elements immediately on load
+    window.addEventListener('load', () => {
+      document.querySelectorAll('.fade-in').forEach(el => el.classList.add('visible'));
+    });
+
+    // Also catch anything that loads after with the observer
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -689,12 +685,10 @@
 
     document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
+    // Belt-and-suspenders fallback after 500ms
     setTimeout(() => {
-      document.querySelectorAll('.fade-in:not(.visible)').forEach(el => {
-        const rect = el.getBoundingClientRect();
-        if (rect.top < window.innerHeight) el.classList.add('visible');
-      });
-    }, 100);
+      document.querySelectorAll('.fade-in:not(.visible)').forEach(el => el.classList.add('visible'));
+    }, 500);
 
     function toggleCard(header) {
       const card = header.closest('.project-card, .exp-card');
