@@ -469,38 +469,12 @@
       position: relative;
     }
 
-    /* Live PDF embed */
     .resume-preview-frame iframe {
       width: 100%;
       height: 100%;
       border: none;
       display: block;
-    }
-
-    /* Placeholder shown until resume.pdf is added */
-    .resume-fallback {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 0.75rem;
-    }
-
-    .resume-fallback svg {
-      width: 48px;
-      height: 48px;
-      opacity: 0.12;
-    }
-
-    .resume-fallback span {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.65rem;
-      color: var(--muted);
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      opacity: 0.4;
+      pointer-events: none;
     }
 
     /* Right column: education + coursework stacked */
@@ -519,7 +493,6 @@
       margin-bottom: 1.25rem;
     }
 
-    /* Education */
     .edu-item {
       padding: 1rem 1.25rem;
       border: 1px solid var(--border);
@@ -549,7 +522,6 @@
       color: var(--muted);
     }
 
-    /* Coursework */
     .course-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -578,25 +550,36 @@
     .projects-list {
       display: flex;
       flex-direction: column;
-      gap: 1.5rem;
+      gap: 1rem;
     }
 
     .project-card {
       background: var(--card);
       border: 1px solid var(--border);
       border-radius: 4px;
-      padding: 2rem 2.5rem;
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 1.5rem;
-      align-items: start;
-      transition: border-color 0.2s, transform 0.2s;
-      cursor: default;
+      overflow: hidden;
+      transition: border-color 0.2s;
     }
 
     .project-card:hover {
       border-color: var(--accent);
-      transform: translateX(4px);
+    }
+
+    .project-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.5rem 2rem;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .project-card-header h3 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.3rem;
+      color: var(--text);
+      font-weight: 400;
+      margin-top: 0.25rem;
     }
 
     .project-num {
@@ -604,22 +587,58 @@
       font-size: 0.7rem;
       color: var(--accent);
       letter-spacing: 0.1em;
-      margin-bottom: 0.75rem;
+      margin-bottom: 0.3rem;
     }
 
-    .project-card h3 {
-      font-family: 'DM Serif Display', serif;
-      font-size: 1.4rem;
-      color: var(--text);
-      margin-bottom: 0.75rem;
-      font-weight: 400;
+    .project-toggle {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--accent);
+      font-size: 1.25rem;
+      line-height: 1;
+      cursor: pointer;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.3s, border-color 0.2s, background 0.2s;
     }
 
-    .project-card p {
+    .project-card.open .project-toggle {
+      transform: rotate(45deg);
+      border-color: var(--accent);
+      background: rgba(232,197,71,0.08);
+    }
+
+    /* Collapsible body */
+    .project-card-body {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease, padding 0.4s ease;
+      padding: 0 2rem;
+    }
+
+    .project-card.open .project-card-body {
+      max-height: 500px;
+      padding: 0 2rem 1.75rem;
+    }
+
+    .project-card-body p {
       font-size: 0.9rem;
       color: var(--muted);
       line-height: 1.7;
       margin-bottom: 1.25rem;
+    }
+
+    .project-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
     }
 
     .project-tags {
@@ -640,8 +659,7 @@
 
     .project-links {
       display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
+      gap: 1rem;
     }
 
     .project-link {
@@ -651,29 +669,10 @@
       text-decoration: none;
       letter-spacing: 0.08em;
       text-transform: uppercase;
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
       transition: color 0.2s;
-      white-space: nowrap;
     }
 
     .project-link:hover { color: var(--accent); }
-
-    .placeholder-note {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.75rem;
-      color: var(--muted);
-      border: 1px dashed var(--border);
-      border-radius: 4px;
-      padding: 2rem;
-      text-align: center;
-      margin-top: 1rem;
-    }
-
-    .placeholder-note span {
-      color: var(--accent);
-    }
 
     /* ── EXPERIENCE ── */
     .timeline {
@@ -848,7 +847,6 @@
       .hero-scroll { left: 1.5rem; }
       .about-grid, .about-bottom, .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
       .course-grid { grid-template-columns: 1fr; }
-      .project-card { grid-template-columns: 1fr; }
       .timeline-item { grid-template-columns: 1fr; gap: 0.5rem; }
       footer { flex-direction: column; gap: 0.5rem; text-align: center; padding: 1.5rem; }
     }
@@ -887,11 +885,6 @@
       </div>
 
       <!-- Right: headshot -->
-      <!--
-        TO ADD YOUR PHOTO:
-        Replace the .hero-photo-placeholder block below with:
-        <img src="assets/images/headshot.jpg" alt="Grant Li" />
-      -->
       <div class="hero-photo-wrap">
         <div class="hero-photo">
           <div class="photo-accent tl"></div>
@@ -954,7 +947,7 @@
         <div class="resume-preview-frame">
           <iframe src="assets/resume.pdf#toolbar=0&navpanes=0&scrolling=0&view=FitH" title="Resume preview" scrolling="no"></iframe>
         </div>
-        <a href="assets/resume.pdf" class="btn btn-ghost" download style="font-size:0.75rem; width:100%; text-align:center;">↓ Download Resume</a>
+        <a href="assets/Grant_Li_Resume.pdf" class="btn btn-ghost" download style="font-size:0.75rem; width:100%; text-align:center;">↓ Download Resume</a>
       </div>
 
       <!-- Right: education + coursework -->
@@ -965,7 +958,7 @@
           <div class="edu-item">
             <div class="edu-school">Georgia Institute of Technology</div>
             <div class="edu-degree">B.S. Electrical Engineering</div>
-            <div class="edu-dates">Expected Graduatoin May 2029</div>
+            <div class="edu-dates">Expected Graduation May 2029</div>
           </div>
         </div>
 
@@ -993,52 +986,73 @@
     <div class="projects-list">
 
       <div class="project-card fade-in">
-        <div>
-          <div class="project-num">Project 01</div>
-          <h3>Your Project Title</h3>
-          <p>Describe what this project does, what problem it solves, and what makes it interesting. Mention the key technical challenges you overcame.</p>
-          <div class="project-tags">
-            <span class="tag">PCB Design</span>
-            <span class="tag">Embedded C</span>
-            <span class="tag">STM32</span>
+        <div class="project-card-header" onclick="toggleProject(this)">
+          <div>
+            <div class="project-num">Project 01</div>
+            <h3>Your Project Title</h3>
           </div>
+          <button class="project-toggle" aria-label="Expand project">+</button>
         </div>
-        <div class="project-links">
-          <a href="#" class="project-link">→ Live Demo</a>
-          <a href="#" class="project-link">→ GitHub</a>
+        <div class="project-card-body">
+          <p>Describe what this project does, what problem it solves, and what makes it interesting. Mention the key technical challenges you overcame.</p>
+          <div class="project-footer">
+            <div class="project-tags">
+              <span class="tag">PCB Design</span>
+              <span class="tag">Embedded C</span>
+              <span class="tag">STM32</span>
+            </div>
+            <div class="project-links">
+              <a href="#" class="project-link">→ Live Demo</a>
+              <a href="#" class="project-link">→ GitHub</a>
+            </div>
+          </div>
         </div>
       </div>
 
       <div class="project-card fade-in">
-        <div>
-          <div class="project-num">Project 02</div>
-          <h3>Your Project Title</h3>
-          <p>Describe what this project does, what problem it solves, and what makes it interesting. Mention the key technical challenges you overcame.</p>
-          <div class="project-tags">
-            <span class="tag">Power Electronics</span>
-            <span class="tag">MATLAB</span>
-            <span class="tag">Control Systems</span>
+        <div class="project-card-header" onclick="toggleProject(this)">
+          <div>
+            <div class="project-num">Project 02</div>
+            <h3>Your Project Title</h3>
           </div>
+          <button class="project-toggle" aria-label="Expand project">+</button>
         </div>
-        <div class="project-links">
-          <a href="#" class="project-link">→ GitHub</a>
-          <a href="#" class="project-link">→ Report</a>
+        <div class="project-card-body">
+          <p>Describe what this project does, what problem it solves, and what makes it interesting. Mention the key technical challenges you overcame.</p>
+          <div class="project-footer">
+            <div class="project-tags">
+              <span class="tag">Power Electronics</span>
+              <span class="tag">MATLAB</span>
+              <span class="tag">Control Systems</span>
+            </div>
+            <div class="project-links">
+              <a href="#" class="project-link">→ GitHub</a>
+              <a href="#" class="project-link">→ Report</a>
+            </div>
+          </div>
         </div>
       </div>
 
       <div class="project-card fade-in">
-        <div>
-          <div class="project-num">Project 03</div>
-          <h3>Your Project Title</h3>
-          <p>Describe what this project does, what problem it solves, and what makes it interesting. Mention the key technical challenges you overcame.</p>
-          <div class="project-tags">
-            <span class="tag">FPGA</span>
-            <span class="tag">VHDL</span>
-            <span class="tag">Signal Processing</span>
+        <div class="project-card-header" onclick="toggleProject(this)">
+          <div>
+            <div class="project-num">Project 03</div>
+            <h3>Your Project Title</h3>
           </div>
+          <button class="project-toggle" aria-label="Expand project">+</button>
         </div>
-        <div class="project-links">
-          <a href="#" class="project-link">→ GitHub</a>
+        <div class="project-card-body">
+          <p>Describe what this project does, what problem it solves, and what makes it interesting. Mention the key technical challenges you overcame.</p>
+          <div class="project-footer">
+            <div class="project-tags">
+              <span class="tag">FPGA</span>
+              <span class="tag">VHDL</span>
+              <span class="tag">Signal Processing</span>
+            </div>
+            <div class="project-links">
+              <a href="#" class="project-link">→ GitHub</a>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -1118,7 +1132,7 @@
     <p class="footer-text">© <span id="year"></span> · All rights reserved</p>
   </footer>
 
-    <script>
+  <script>
     document.getElementById('year').textContent = new Date().getFullYear();
 
     const observer = new IntersectionObserver((entries) => {
@@ -1139,6 +1153,12 @@
         if (rect.top < window.innerHeight) el.classList.add('visible');
       });
     }, 100);
+
+    function toggleProject(header) {
+      const card = header.closest('.project-card');
+      card.classList.toggle('open');
+    }
   </script>
+
 </body>
 </html>
