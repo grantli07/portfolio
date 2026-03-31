@@ -195,13 +195,37 @@
       font-family: 'DM Mono', monospace; font-size: 0.82rem;
       color: var(--accent2); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 1.25rem;
     }
-    .skills-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; }
-    .skill-item {
-      display: flex; align-items: center; gap: 0.6rem;
-      font-family: 'DM Mono', monospace; font-size: 0.85rem; color: var(--text);
-      padding: 0.6rem 0; border-bottom: 1px solid var(--border);
+
+    .skills-list {
+      display: flex;
+      flex-direction: column;
     }
-    .skill-item::before { content: '▸'; color: var(--accent); font-size: 0.75rem; }
+
+    .skills-row {
+      display: flex;
+      align-items: baseline;
+      gap: 1rem;
+      padding: 0.65rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .skills-category {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--accent);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      white-space: nowrap;
+      min-width: 170px;
+      flex-shrink: 0;
+    }
+
+    .skills-values {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.82rem;
+      color: var(--text);
+      line-height: 1.6;
+    }
 
     .about-bottom {
       display: grid; grid-template-columns: 1fr 1fr;
@@ -450,13 +474,24 @@
       </div>
       <div>
         <div class="skills-label">Technical Skills</div>
-        <div class="skills-grid">
-          <div class="skill-item">Circuit/Schematic Design</div>
-          <div class="skill-item">PCB Layout</div>
-          <div class="skill-item">KiCad / Altium</div>
-          <div class="skill-item">Embedded C/C++</div>
-          <div class="skill-item">Python</div>
-          <div class="skill-item">Java</div>
+
+        <div class="skills-list">
+          <div class="skills-row">
+            <span class="skills-category">Programming</span>
+            <span class="skills-values">Java, Python, C/C++</span>
+          </div>
+        <div class="skills-row">
+          <span class="skills-category">Frameworks / Libraries</span>
+          <span class="skills-values">PyTorch, Pandas, NumPy, Scikit-learn</span>
+        </div>
+        <div class="skills-row">
+          <span class="skills-category">Software</span>
+          <span class="skills-values">Git/GitHub, Microsoft Office, IDEs, KiCad, Altium</span>
+        </div>
+        <div class="skills-row">
+          <span class="skills-category">Hardware</span>
+          <span class="skills-values">Arduino, Multimeter, Soldering</span>
+        </div>
         </div>
       </div>
     </div>
