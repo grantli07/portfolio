@@ -360,6 +360,10 @@
       grid-template-columns: 1fr 1fr;
       gap: 1rem;
     }
+    .project-images.single {
+      grid-template-columns: 1fr;
+      max-width: 400px;
+    }
     .project-images img {
       width: 100%;
       aspect-ratio: 4 / 3;
@@ -418,6 +422,7 @@
       .skills-row { flex-direction: column; gap: 0.25rem; }
       .skills-category { min-width: unset; }
       .project-images { grid-template-columns: 1fr; }
+      .project-images.single { max-width: 100%; }
       footer { flex-direction: column; gap: 0.5rem; text-align: center; padding: 1.5rem; }
     }
   </style>
@@ -628,8 +633,8 @@
           <div class="exp-section">
             <div class="exp-section-title">Photos</div>
             <div class="project-images">
-              <img src="assets/images/schematic.png" alt="PCB Keychain Schematic" />
-              <img src="assets/images/pcb.png" alt="PCB Keychain Layout" />
+              <img src="assets/images/pcb-keychain-1.jpg" alt="PCB Keychain front" />
+              <img src="assets/images/pcb-keychain-2.jpg" alt="PCB Keychain back" />
             </div>
           </div>
 
@@ -654,22 +659,49 @@
             <div class="card-meta">
               <span class="card-label">Project 03</span>
               <span class="card-meta-sep">·</span>
-              <span class="card-date">Month 20XX</span>
+              <span class="card-date">May – September 2024</span>
             </div>
-            <h3>Your Project Title</h3>
+            <h3>Wearable Activity Recognition for Eldercare</h3>
           </div>
           <button class="card-toggle" aria-label="Expand">+</button>
         </div>
         <div class="card-body">
-          <p>Describe what this project does, what problem it solves, and what makes it interesting. Mention the key technical challenges you overcame.</p>
+
+          <div class="exp-section">
+            <div class="exp-section-title">Project Details</div>
+            <p>A machine learning research project focused on human activity recognition (HAR) for eldercare monitoring. 
+              Using the HAR70+ dataset of accelerometer signals from seniors, I trained transformer and LSTM models in PyTorch to classify activities from motion patterns, achieving a best accuracy of 95.85%. 
+              Findings were documented in a published paper.
+            </p>
+          </div>
+
+          <div class="exp-section">
+            <div class="exp-section-title">My Experience</div>
+            <p>Before I started this project, I spent a lot of time volunteering at a local senior home in my city and I wanted to research something that would help caretakers better track seniors' motion. 
+              This project was my first deep dive into machine learning, and it ended up being one of the most rewarding experiences I've had.
+              Working with 2.3 million data points from real accelerometer signals was a whole different challenge from classroom assignments. I had to get comfortable with Pandas and NumPy quickly to clean, structure, and make sense of the dataset before I could start training. From there, I experimented with both LSTM and transformer architectures in PyTorch, learning how each handled sequential motion data differently. 
+              Getting to 95.85% accuracy was satisfying and I'm not only proud that such results matched those from state-of-the-art research, but also being able to very rigourously partake in the research methodology, especially learning how to reiterate between designing a model, testing, and drawing conclusions.
+            </p>
+          </div>
+
+          <div class="exp-section">
+            <div class="exp-section-title">Photos</div>
+            <div class="project-images single">
+              <img src="assets/images/model.png" alt="ML Model Diagram" />
+            </div>
+          </div>
+
           <div class="card-footer">
             <div class="project-tags">
-              <span class="tag">FPGA</span>
-              <span class="tag">VHDL</span>
+              <span class="tag">Python</span>
+              <span class="tag">PyTorch</span>
+              <span class="tag">Machine Learning</span>
               <span class="tag">Signal Processing</span>
+              <span class="tag">Research Methodology</span>
             </div>
             <div class="project-links">
-              <a href="#" class="project-link">→ GitHub</a>
+              <a href="#" class="project-link">→ Live Demo</a>
+              <a href="https://doi.org/10.62051/ijcsit.v4n2.30" class="project-link">→ Paper</a>
             </div>
           </div>
         </div>
