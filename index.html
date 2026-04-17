@@ -583,18 +583,42 @@
             <div class="card-meta">
               <span class="card-label">Project 01</span>
               <span class="card-meta-sep">·</span>
-              <span class="card-date">February – March 2026</span>
+              <span class="card-date">February – April 2026</span>
             </div>
             <h3>Motivation Study Timer</h3>
           </div>
           <button class="card-toggle" aria-label="Expand">+</button>
         </div>
         <div class="card-body">
-          <p>Will update soon.</p>
+          <div class="exp-section">
+            <div class="exp-section-title">Project Details</div>
+            <p>A Pomodoro-based study timer built on Arduino Uno with a 16x2 LCD display. Supports auto and custom session modes spanning 1–5 hours across multiple 25-minute focus cycles with automatic 5-minute rest periods, a 3-button menu-driven UI, motivational messages, and startup/end melodies.</p>
+          </div>
+
+          <div class="exp-section">
+            <div class="exp-section-title">My Experience</div>
+            <p>February: Draft starting idea and project pitch; determine materials required; obtain all required parts and materials</p>
+            <p>March: Make all wiring connections between components on breadboard and Arduino Uno; Program board using Arduino (C++) and PlatformIO</p>
+            <p>April: Summarize project details and process</p>
+            <p>During the development process, I found that wiring the components was a big success. I learned about the Arduino's analog and digital pins and with some searching, I was able to quickly understand how to connect the pins on the components. Although the most challenging part was connecting the LCD screen due to it having the most pins.
+              For coding, I started with a basic countdown on the LCD and kept building from there. Getting the button debounce logic right was one of the trickier parts as without it, a single press would register multiple times and break the menu navigation entirely. Once that was solid, I added the auto mode which cuts session setup time by pre-configuring a full Pomodoro cycle in one button press.
+              Adding the motivational messages and melodies at the end was the fun part — small touches that make the experience feel more complete. Overall this project pushed me to think about hardware and software codesign, while simultaneously considering user experience.</p>
+          </div>
+
+          <div class="exp-section">
+            <div class="exp-section-title">Photos</div>
+            <div class="project-images">
+              <img src="assets/images/main_menu.jpeg" alt="Main Menuc" />
+              <img src="assets/images/timer.jpeg" alt="Timer" />
+              <img src="assets/images/summary.jpeg" alt="Session Summary" />
+            </div>
+          </div>
+
           <div class="card-footer">
             <div class="project-tags">
               <span class="tag">Arduino</span>
-              <span class="tag">Embedded C/C++</span>
+              <span class="tag">Embedded Systems</span>
+              <span class="tag">C/C++</span>
               <span class="tag">Git/GitHub</span>
             </div>
             <div class="project-links">
